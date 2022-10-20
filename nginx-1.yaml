@@ -1,0 +1,21 @@
+---
+
+- name: Installation and starting the nginx services
+  hosts: all
+  vars:
+      packages:
+        - name: nginx
+          required: True
+        - name: net-tools
+          required: True
+        - name: nfs-utils
+          required: False
+  tasks:
+   -  name: Installation of packages
+      yum:
+        name: "{{ item.name }}"
+        state: installed
+
+      when: item.required == True
+      loops: "{{ packages }}"
+     

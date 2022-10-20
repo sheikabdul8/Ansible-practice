@@ -1,0 +1,23 @@
+---
+
+-
+   name: jinja2 template testing
+   hosts: localhost
+   vars:
+     name: sheik 
+     age: 25
+     file: /ansible/LAMP
+   tasks:
+     -  debug:
+           msg: "My name is {{ name | upper }} and my age is {{ age }}"
+
+     - debug:
+          msg: "My name is {{ name | lower }} and my age is {{ age }}"
+      
+     - debug:
+          msg: "My name is {{ name | title }} and my age is {{ age }}"
+ 
+     - debug:  
+          msg: "{{ name }}{{ 100 | random }}" 
+     - debug:
+         msg:  "{{ file | basename }}"

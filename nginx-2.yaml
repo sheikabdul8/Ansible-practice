@@ -1,0 +1,22 @@
+---
+
+-  name: Installation of packages
+   hosts: all
+   vars:
+     packages:
+       - name: nginx
+         required: True
+       - name: net-tools
+         required: True
+       - name: nfs-utils
+         requried: False
+   tasks:
+    - name: Installation
+      yum: 
+        name: "{{ item.name }}"
+        state: present
+      when: item.requried == True
+      loop: "{{ packages }}"
+        
+ 
+ 

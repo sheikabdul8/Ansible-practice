@@ -1,0 +1,6 @@
+---
+
+- name: Installation of mysql
+  hosts: all
+  roles:
+   - role: acandid.mysql     

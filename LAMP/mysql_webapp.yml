@@ -1,0 +1,47 @@
+---
+
+-  name: Install and configure flask 
+   hosts: all
+   tasks:
+    - name: Installation of python packages
+      yum:
+         name: "{{ item }}"
+         state: present
+      with_items:
+       - python39
+       - python39-setuptools
+       - python39-pip
+       - python39-PyMySQL
+       - python3-PyMySQL
+       - python3-virtualenv
+    - name: Installation of mysql related packages
+      yum:
+        name: mysql-server
+        state: present
+    - name: Start the service for mysql-server
+      service: 
+        name: mysqld
+        state: started
+    - name: database creation 
+      mysql_db: name=employee_db state=present
+
+    - name: create a db user and provide the previleges
+      mysql_user:
+        user: db_user
+        password: P@55w0rd
+        priv: '*.*:ALL'
+        state: present
+
+    - name: Install FLASK
+      pip: 
+        name: [ 'flash', 'flask-mysql' ]
+        state: present
+
+    - name: Copy a app file to opt folder
+      ansible.builtin.copy:
+        src: /ansible/LAMP/app.py
+        dest: /opt/app.py
+
+    - name: Start web-application
+      shell: FLASK_APP=/opt/app.py nohup flask run --host=0.0.0.0 &
+        

@@ -1,0 +1,17 @@
+---
+
+- name: Installation and starting the nginx services
+  hosts: all
+  tasks:
+   -   name: Installation of nginx 
+       yum:
+         name: "{{ packages }}"
+         state: installed
+       vars:
+         packages:
+          - nginx
+          - net-tools
+       register: command_output
+   -   name:  Starting the services
+       service: name=nginx state=started 
+     

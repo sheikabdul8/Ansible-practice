@@ -1,0 +1,45 @@
+---
+
+-  name: Install and configure flask 
+   hosts: all
+   tasks:
+    - name: Installation of python packages
+      yum:
+         name: "{{ item }}"
+         state: present
+      with_items:
+        - epel-release
+        - python 
+        - python-pip
+    - name: mysql community installation
+      yum: 
+        name: "http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm"
+        state: present
+    - name: Installation of mysql related packages
+      yum:
+        name: [ mysql_server , mysql_client ]
+        state: present
+    - name: Start the service
+      service: 
+        name: mysql
+        state: started
+    - name: database creation 
+      mysql_db: name=employee_db state=present
+    - name: create a db user and provide the previleges
+      mysql_user:
+        user: db_user
+        password: P@55w0rd
+        priv: '*.*:ALL'
+        state: present
+
+    - name: Install FLASK
+      yum: name={{ item }} state=present
+      with_items:
+       - flask
+       - flask-mysql  
+    - name: copy the app.py to /opt/app.py
+      copy: src=app.py dest=/opt/app.py
+
+    - name: Start web-application
+      shell: FLASK_APP=/opt/app.py nohup flask run --host=0.0.0.0 &
+        

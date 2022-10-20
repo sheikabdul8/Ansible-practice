@@ -1,0 +1,13 @@
+-
+  name: Installation 
+  hosts: all
+  tasks:
+    -  name: Installation of packages
+       yum: name='{{ packages }}' state=installed
+       with_items: '{{ packages }}'
+  vars:
+    packages:
+    - httpd
+    - telnet
+    - nmap
+

@@ -1,0 +1,7 @@
+
+---
+
+- name: OS patching
+  hosts: target2
+  roles:
+   - role: hungrypanda.ansible_ospatch

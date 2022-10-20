@@ -1,0 +1,13 @@
+---
+
+-  
+   name: additing the line in the /etc/resolv.conf
+   hosts: all
+   tasks:
+    -   name: adding the lines  in /etc/resolv.conf file
+        lineinfile:
+            path: /etc/resolv.conf
+            line: 'nameserver  0.0.0.0'
+         
+       
+   

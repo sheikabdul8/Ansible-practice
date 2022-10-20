@@ -1,0 +1,9 @@
+---
+ - name: Copying the package 
+   hosts: all
+   tasks:
+   - name: coping from source to dst
+     copy:
+      src: /tmp/*
+      dest: /tmp/
+

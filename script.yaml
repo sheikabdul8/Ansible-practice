@@ -1,0 +1,8 @@
+---
+ - name: Run the /root/shellscript/pkge.sh with an arg
+   hosts: all
+   tasks:
+    -  name: Run the the pkge.sh script to verify the package information
+       
+
+ 

@@ -1,0 +1,14 @@
+---
+- name: Display the registered msgs
+  hosts: all
+  tasks:
+   -  name: installation of nfs-utils packages
+      yum: 
+        name: [ autofs, nfs-utils ]
+        state: present
+      register: everything_ok
+
+   -  name: Display the msg using debug module
+      debug:
+        msg: "{{ everything_ok }}"
+
